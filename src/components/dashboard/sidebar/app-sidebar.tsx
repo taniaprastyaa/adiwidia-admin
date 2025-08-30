@@ -44,6 +44,11 @@ const data = {
       url: "/dashboard/culture",
       icon: IconCategory,
     },
+    {
+      title: "Cerita",
+      url: "/dashboard/story",
+      icon: IconCategory,
+    },
     // {
     //   title: "Modul",
     //   url: "/dashboard/module",
