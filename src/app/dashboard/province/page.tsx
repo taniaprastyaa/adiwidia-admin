@@ -74,11 +74,11 @@ export default function ProvincePage() {
     <div className="px-4 lg:px-6">
       <Card>
         <CardHeader>
-          <CardTitle>Daftar Kategori</CardTitle>
+          <CardTitle>Daftar Provinsi</CardTitle>
           <div className="flex gap-5 items-center mt-2">
             <TableSearch value={globalFilter} onChange={setGlobalFilter} />
             <Button onClick={() => setOpenCreateModal(true)}>
-              <IconPlus className="w-5 h-5 mr-2" /> Tambah Kategori
+              <IconPlus className="w-5 h-5 mr-2" /> Tambah Provinsi
             </Button>
           </div>
         </CardHeader>
