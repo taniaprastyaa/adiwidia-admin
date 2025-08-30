@@ -1,8 +1,8 @@
 "use client"
 
-import React, { useEffect } from "react";
-import { TrendingUp } from "lucide-react";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import React, { useEffect } from "react"
+import { TrendingUp } from "lucide-react"
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 
 import {
   Card,
@@ -11,58 +11,60 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/card"
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/components/ui/chart"
 
-import { useStatisticStore } from "@/stores/statisticStore";
+import { useStatisticStore } from "@/stores/statisticStore"
 
 const chartConfig = {
-  submodules: {
-    label: "Total Submodul",
+  cultures: {
+    label: "Total Budaya",
     color: "var(--color-main)",
   },
-} satisfies ChartConfig;
+} satisfies ChartConfig
 
-export default function ChartAreaSubModule() {
+export default function ChartAreaCulture() {
   const {
-    subModulesLast12Months,
+    culturesLast12Months,
     loading,
-    fetchSubModulesLast12Months,
-  } = useStatisticStore();
+    fetchCulturesLast12Months,
+  } = useStatisticStore()
 
   useEffect(() => {
-    fetchSubModulesLast12Months();
-  }, [fetchSubModulesLast12Months]);
+    fetchCulturesLast12Months()
+  }, [fetchCulturesLast12Months])
 
-  const chartData = subModulesLast12Months.map((item) => ({
-    month: item.submodule_month_name,
-    submodules: item.submodule_count,
-  }));
+  const chartData = culturesLast12Months.map((item) => ({
+    month: item.culture_month_name,
+    cultures: item.culture_count,
+  }))
 
-  const startDate = subModulesLast12Months.length > 0
-    ? `${subModulesLast12Months[0].submodule_month_name.slice(0, 3)} ${subModulesLast12Months[0].submodule_year}`
-    : "";
-  const endDate = subModulesLast12Months.length > 0
-    ? `${subModulesLast12Months[subModulesLast12Months.length - 1].submodule_month_name.slice(0, 3)} ${subModulesLast12Months[subModulesLast12Months.length - 1].submodule_year}`
-    : "";
+  const startDate =
+    culturesLast12Months.length > 0
+      ? `${culturesLast12Months[0].culture_month_name.slice(0, 3)} ${culturesLast12Months[0].culture_year}`
+      : ""
+  const endDate =
+    culturesLast12Months.length > 0
+      ? `${culturesLast12Months[culturesLast12Months.length - 1].culture_month_name.slice(0, 3)} ${culturesLast12Months[culturesLast12Months.length - 1].culture_year}`
+      : ""
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Total Submodul (12 Bulan Terakhir)</CardTitle>
+        <CardTitle>Total Budaya (12 Bulan Terakhir)</CardTitle>
         <CardDescription>
-          Menampilkan jumlah submodul yang dibuat setiap bulan selama 12 bulan terakhir.
+          Menampilkan jumlah budaya yang ditambahkan setiap bulan selama 12 bulan terakhir.
         </CardDescription>
       </CardHeader>
       <CardContent>
         {loading ? (
           <div className="flex justify-center items-center h-48">
-            <p className="text-muted-foreground">Memuat data submodul...</p>
+            <p className="text-muted-foreground">Memuat data budaya...</p>
           </div>
         ) : (
           <ChartContainer config={chartConfig}>
@@ -84,7 +86,7 @@ export default function ChartAreaSubModule() {
                 content={<ChartTooltipContent indicator="line" />}
               />
               <Area
-                dataKey="submodules"
+                dataKey="cultures"
                 type="natural"
                 fill="var(--color-main)"
                 fillOpacity={0.4}
@@ -98,7 +100,7 @@ export default function ChartAreaSubModule() {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 leading-none font-medium">
-              Statistik submodul bulanan. <TrendingUp className="h-4 w-4" />
+              Statistik budaya bulanan. <TrendingUp className="h-4 w-4" />
             </div>
             <div className="text-muted-foreground flex items-center gap-2 leading-none">
               {startDate} - {endDate}
@@ -107,5 +109,5 @@ export default function ChartAreaSubModule() {
         </div>
       </CardFooter>
     </Card>
-  );
+  )
 }

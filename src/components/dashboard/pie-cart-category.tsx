@@ -42,25 +42,25 @@ function hexToRgb(hex: string) {
   }
 }
 
-export function ChartPieModulePerCategory() {
+export function ChartPieCulturePerCategory() {
   const {
-    modulesPerCategory,
-    fetchModulesPerCategory,
+    culturesPerCategory,
+    fetchCulturesPerCategory,
   } = useStatisticStore()
 
   const [colors, setColors] = useState<string[]>([])
 
   useEffect(() => {
-    fetchModulesPerCategory()
+    fetchCulturesPerCategory()
 
     const alphaVariants = [1, 0.8, 0.6, 0.4, 0.2]
     const newColors = getTeal700Variants(alphaVariants)
     setColors(newColors)
-  }, [fetchModulesPerCategory])
+  }, [fetchCulturesPerCategory])
 
-  const chartData = modulesPerCategory.map((item, idx) => ({
+  const chartData = culturesPerCategory.map((item, idx) => ({
     category: item.category_name,
-    count: item.module_count,
+    count: item.culture_count,
     fill: colors[idx % colors.length],
   }))
 
@@ -74,13 +74,13 @@ export function ChartPieModulePerCategory() {
     ])
   ) as ChartConfig
 
-  chartConfig["count"] = { label: "Jumlah Modul" }
+  chartConfig["count"] = { label: "Jumlah Budaya" }
 
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Modul per Kategori</CardTitle>
-        <CardDescription>Distribusi berdasarkan kategori</CardDescription>
+        <CardTitle>Budaya per Kategori</CardTitle>
+        <CardDescription>Distribusi budaya berdasarkan kategori</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer

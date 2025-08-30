@@ -1,101 +1,107 @@
-// import { create } from "zustand";
-// import { supabaseClient } from "@/utils/supabase";
+import { create } from "zustand";
+import { supabaseClient } from "@/utils/supabase";
 
-// const supabase = supabaseClient;
+const supabase = supabaseClient;
 
-// interface MonthlySubModuleStat {
-//   submodule_year: number;
-//   submodule_month_number: number;
-//   submodule_month_name: string;
-//   submodule_count: number;
-// }
+// --- Interface untuk data per bulan
+interface MonthlyCultureStat {
+  culture_year: number;
+  culture_month_number: number;
+  culture_month_name: string;
+  culture_count: number;
+}
 
-// interface ModulePerCategoryStat {
-//   category_id: number;
-//   category_name: string;
-//   module_count: number;
-// }
+// --- Interface untuk data per kategori
+interface CulturePerCategoryStat {
+  category_id: number;
+  category_name: string;
+  culture_count: number;
+}
 
-// interface StatisticState {
-//   totalCategories: number;
-//   totalModules: number;
-//   totalSubModules: number;
-//   averageSubModuleDuration: number;
-//   subModulesLast12Months: MonthlySubModuleStat[];
-//   modulesPerCategory: ModulePerCategoryStat[];
-//   loading: boolean;
+// --- State utama
+interface StatisticState {
+  totalCategories: number;
+  totalCultures: number;
+  totalStories: number;
+  totalVirtualMuseumItems: number;
+  culturesLast12Months: MonthlyCultureStat[];
+  culturesPerCategory: CulturePerCategoryStat[];
+  loading: boolean;
 
-//   fetchSubModuleTotals: () => Promise<void>;
-//   fetchSubModulesLast12Months: () => Promise<void>;
-//   fetchModulesPerCategory: () => Promise<void>;
-// }
+  fetchTotals: () => Promise<void>;
+  fetchCulturesLast12Months: () => Promise<void>;
+  fetchCulturesPerCategory: () => Promise<void>;
+}
 
-// export const useStatisticStore = create<StatisticState>((set) => ({
-//   totalCategories: 0,
-//   totalModules: 0,
-//   totalSubModules: 0,
-//   averageSubModuleDuration: 0,
-//   subModulesLast12Months: [],
-//   modulesPerCategory: [],
-//   loading: false,
+export const useStatisticStore = create<StatisticState>((set) => ({
+  totalCategories: 0,
+  totalCultures: 0,
+  totalStories: 0,
+  totalVirtualMuseumItems: 0,
+  culturesLast12Months: [],
+  culturesPerCategory: [],
+  loading: false,
 
-//   fetchSubModuleTotals: async () => {
-//     set({ loading: true });
+  // Fetch total (untuk 4 card di dashboard)
+  fetchTotals: async () => {
+    set({ loading: true });
 
-//     const [
-//       { data: totalCategories, error: err1 },
-//       { data: totalModules, error: err2 },
-//       { data: totalSubModules, error: err3 },
-//       { data: averageDuration, error: err4 },
-//     ] = await Promise.all([
-//       supabase.rpc("get_total_categories"),
-//       supabase.rpc("get_total_modules"),
-//       supabase.rpc("get_total_sub_modules"),
-//       supabase.rpc("get_average_sub_module_duration"),
-//     ]);
+    const [
+      { data: totalCategories, error: err1 },
+      { data: totalCultures, error: err2 },
+      { data: totalStories, error: err3 },
+      { data: totalVirtualMuseumItems, error: err4 },
+    ] = await Promise.all([
+      supabase.rpc("get_total_categories"),
+      supabase.rpc("get_total_cultures"),
+      supabase.rpc("get_total_stories"),
+      supabase.rpc("get_total_virtual_museum_items"),
+    ]);
 
-//     set({ loading: false });
+    set({ loading: false });
 
-//     if (err1 || err2 || err3 || err4) {
-//       console.error("SubModule Statistik Error:", { err1, err2, err3, err4 });
-//       throw new Error("Gagal mengambil data statistik SubModule!");
-//     }
+    if (err1 || err2 || err3 || err4) {
+      console.error("Error fetchTotals:", { err1, err2, err3, err4 });
+      throw new Error("Gagal mengambil data total statistik!");
+    }
 
-//     set({
-//       totalCategories: totalCategories ?? 0,
-//       totalModules: totalModules ?? 0,
-//       totalSubModules: totalSubModules ?? 0,
-//       averageSubModuleDuration: averageDuration ?? 0,
-//     });
-//   },
+    set({
+      totalCategories: totalCategories ?? 0,
+      totalCultures: totalCultures ?? 0,
+      totalStories: totalStories ?? 0,
+      totalVirtualMuseumItems: totalVirtualMuseumItems ?? 0,
+    });
+  },
 
-//   fetchSubModulesLast12Months: async () => {
-//     set({ loading: true });
+  // Fetch budaya 12 bulan terakhir (untuk area chart)
+  fetchCulturesLast12Months: async () => {
+    set({ loading: true });
 
-//     const { data, error } = await supabase.rpc("get_submodules_added_last_12_months");
+    const { data, error } = await supabase.rpc("get_cultures_added_last_12_months");
 
-//     set({ loading: false });
+    set({ loading: false });
 
-//     if (error) {
-//       console.error("Error submodule 12 bulan:", error);
-//       throw new Error("Gagal mengambil statistik SubModule 12 bulan terakhir!");
-//     }
+    if (error) {
+      console.error("Error fetchCulturesLast12Months:", error);
+      throw new Error("Gagal mengambil statistik budaya 12 bulan terakhir!");
+    }
 
-//     set({ subModulesLast12Months: data || [] });
-//   },
+    set({ culturesLast12Months: data || [] });
+  },
 
-//   fetchModulesPerCategory: async () => {
-//     set({ loading: true });
+  // Fetch budaya per kategori (untuk pie chart)
+  fetchCulturesPerCategory: async () => {
+    set({ loading: true });
 
-//     const { data, error } = await supabase.rpc("get_total_modules_per_category");
+    const { data, error } = await supabase.rpc("get_total_cultures_per_category");
 
-//     set({ loading: false });
+    set({ loading: false });
 
-//     if (error) {
-//       console.error("Error modul per kategori:", error);
-//       throw new Error("Gagal mengambil data modul per kategori!");
-//     }
+    if (error) {
+      console.error("Error fetchCulturesPerCategory:", error);
+      throw new Error("Gagal mengambil data budaya per kategori!");
+    }
 
-//     set({ modulesPerCategory: data || [] });
-//   },
-// }));
+    set({ culturesPerCategory: data || [] });
+  },
+}));
