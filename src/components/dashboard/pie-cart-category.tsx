@@ -19,9 +19,8 @@ import {
 
 import { useStatisticStore } from "@/stores/statisticStore"
 
-function getTeal700Variants(alphaLevels: number[]) {
-  const teal700 = "#0f766e"
-  const rgb = hexToRgb(teal700)
+function getColorVariants(baseHex: string, alphaLevels: number[]) {
+  const rgb = hexToRgb(baseHex)
   if (!rgb) return []
   return alphaLevels.map((alpha) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`)
 }
@@ -43,18 +42,16 @@ function hexToRgb(hex: string) {
 }
 
 export function ChartPieCulturePerCategory() {
-  const {
-    culturesPerCategory,
-    fetchCulturesPerCategory,
-  } = useStatisticStore()
+  const { culturesPerCategory, fetchCulturesPerCategory } = useStatisticStore()
 
   const [colors, setColors] = useState<string[]>([])
 
   useEffect(() => {
     fetchCulturesPerCategory()
 
-    const alphaVariants = [1, 0.8, 0.6, 0.4, 0.2]
-    const newColors = getTeal700Variants(alphaVariants)
+    // gunakan variasi alpha untuk #C79023
+    const alphaVariants = [1, 0.85, 0.7, 0.55, 0.4, 0.25]
+    const newColors = getColorVariants("#C79023", alphaVariants)
     setColors(newColors)
   }, [fetchCulturesPerCategory])
 
