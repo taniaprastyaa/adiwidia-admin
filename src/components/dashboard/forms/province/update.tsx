@@ -55,7 +55,7 @@ export default function UpdateProvinceModal({ open, onClose, province,
   };
 
   return (
-    <ActionModal open={open} onClose={onClose} type="update" title="Update Province" onSubmit={handleSubmit} loading={loadingCrud} >
+    <ActionModal open={open} onClose={onClose} type="update" title="Update Provinsi" onSubmit={handleSubmit} loading={loadingCrud} >
       <div className="grid gap-4">
         <div>
           <Label className="block text-sm font-medium mb-2" htmlFor="name">Nama Provinsi</Label>
