@@ -1,59 +1,61 @@
 import { create } from "zustand";
-import type { Category, NewCategory, UpdateCategory} from "@/types";
+import type { Category, NewCategory, UpdateCategory } from "@/types";
 import { supabaseClient } from "@/utils/supabase";
+import { generateSlug } from "@/utils/slug";
 
 const supabase = supabaseClient;
-interface categoryState {
-    categories: Category[];
-    selectedCategory: Category | null;
-    loading: boolean;
-    loadingCrud: boolean;
-    fetchCategories: () => Promise<void>;
-    createCategory: (newCategory: NewCategory) => Promise<void>;
-    getCategoryById: (categoryId: number) => Promise<void>;
-    updateCategory: (updatedCategory: UpdateCategory) => Promise<void>;
-    deleteCategory: (categoryId: number) => Promise<void>;
+
+interface CategoryState {
+  categories: Category[];
+  selectedCategory: Category | null;
+  loading: boolean;
+  loadingCrud: boolean;
+  fetchCategories: () => Promise<void>;
+  createCategory: (newCategory: Omit<NewCategory, "slug">) => Promise<void>;
+  getCategoryById: (id: number) => Promise<void>;
+  updateCategory: (
+    updatedCategory: Partial<Omit<UpdateCategory, "slug">> & { id: number }
+  ) => Promise<void>;
+  deleteCategory: (id: number) => Promise<void>;
 }
 
-export const useCategoryStore = create<categoryState>((set) => ({
-    categories: [],
-    selectedCategory: null,
-    loading: false,
-    loadingCrud: false,
+export const useCategoryStore = create<CategoryState>((set) => ({
+  categories: [],
+  selectedCategory: null,
+  loading: false,
+  loadingCrud: false,
 
   // get all categories
   fetchCategories: async () => {
     set({ loading: true });
-      
     const { data, error } = await supabase
       .from("categories")
       .select("*")
       .order("created_at", { ascending: false });
-      
-      set({ loading: false });
-      
-      if (error) {
-        throw new Error("Gagal mengambil data kategori!");
-      }
-      
-      set({ categories: data });
-  },  
 
-  // create category
-  createCategory: async (newCategory) => {
+    set({ loading: false });
+
+    if (error) throw new Error("Gagal mengambil data kategori!");
+
+    set({ categories: data });
+  },
+
+  // create category (slug otomatis dari category_name)
+  createCategory: async (newCategoryInput) => {
     set({ loadingCrud: true });
+
+    const slug = generateSlug(newCategoryInput.category_name);
+    const newCategory = { ...newCategoryInput, slug };
 
     const { data, error } = await supabase
       .from("categories")
       .insert(newCategory)
       .select()
-      .single(); 
+      .single();
 
     set({ loadingCrud: false });
 
-    if (error) {
-      throw new Error(error.message);
-    }
+    if (error) throw new Error(error.message);
 
     set((state) => ({
       categories: [data, ...state.categories],
@@ -61,60 +63,59 @@ export const useCategoryStore = create<categoryState>((set) => ({
   },
 
   // get category by id
-  getCategoryById: async (categoryId: number) => {
+  getCategoryById: async (id) => {
     set({ loading: true });
 
     const { data, error } = await supabase
       .from("categories")
       .select("*")
-      .eq("id", categoryId)
-      .single(); 
+      .eq("id", id)
+      .single();
 
     set({ loading: false });
 
     if (error) {
-      throw new Error(error.message);
+      set({ selectedCategory: null });
+      console.error("Error fetching category:", error);
+      return;
     }
 
     set({ selectedCategory: data });
   },
 
-  // update category
-  updateCategory: async (updatedCategory) => {
+  // update category (slug update kalau category_name diubah)
+  updateCategory: async (updateInput) => {
     set({ loadingCrud: true });
-  
-    const { id, ...fieldsToUpdate } = updatedCategory;
-  
+
+    const { id, category_name, ...rest } = updateInput;
+    const slug = category_name ? generateSlug(category_name) : undefined;
+    const updatePayload = { ...rest, ...(category_name && { category_name, slug }) };
+
     const { data, error } = await supabase
       .from("categories")
-      .update(fieldsToUpdate)
+      .update(updatePayload)
       .eq("id", id)
       .select()
       .single();
-  
+
     set({ loadingCrud: false });
-  
-    if (error) {
-      throw new Error(error.message);
-    }
-  
+
+    if (error) throw new Error(error.message);
+
     set((state) => ({
-      categories: state.categories.map((category) =>
-        category.id === id ? data : category
-      ),
+      categories: state.categories.map((c) => (c.id === id ? data : c)),
       selectedCategory: data,
     }));
   },
 
-  // delete category
-  deleteCategory: async (categoryId) => {
+  // delete category (cek kalau dipakai di expenses)
+  deleteCategory: async (id) => {
     set({ loadingCrud: true });
 
-    // Cek apakah category terpakai di tabel expenses
     const { count, error: countError } = await supabase
       .from("expenses")
       .select("id", { count: "exact", head: true })
-      .eq("category_id", categoryId);
+      .eq("category_id", id);
 
     if (countError) {
       set({ loadingCrud: false });
@@ -129,26 +130,15 @@ export const useCategoryStore = create<categoryState>((set) => ({
     const { error } = await supabase
       .from("categories")
       .delete()
-      .eq("id", categoryId);
+      .eq("id", id);
 
     set({ loadingCrud: false });
 
-    if (error) {
-      if (
-        error.message.includes("violates foreign key constraint") &&
-        error.message.includes("expenses_category_id_fkey")
-      ) {
-        throw new Error("CATEGORY_USED_IN_EXPENSES");
-      }
-
-      throw new Error(error.message);
-    }
+    if (error) throw new Error(error.message);
 
     set((state) => ({
-      categories: state.categories.filter((category) => category.id !== categoryId),
-      selectedCategory:
-        state.selectedCategory?.id === categoryId ? null : state.selectedCategory,
+      categories: state.categories.filter((c) => c.id !== id),
+      selectedCategory: state.selectedCategory?.id === id ? null : state.selectedCategory,
     }));
-  }
-
+  },
 }));

@@ -1,15 +1,18 @@
 import { z } from "zod";
-import { useCategoryStore } from "@/stores/categoryStore";
 import type { NewCategory } from "@/types";
+import { useCategoryStore } from "@/stores/categoryStore";
 
 const createCategorySchema = z.object({
   category_name: z
     .string()
     .min(2, { message: "Nama kategori minimal 2 karakter" })
     .trim(),
+  description: z.string().nullable().optional(),
 });
 
-export async function createCategoryRequest(categoryData: NewCategory) {
+export async function createCategoryRequest(
+  categoryData: Omit<NewCategory, "slug">
+) {
   const result = createCategorySchema.safeParse(categoryData);
 
   if (!result.success) {
@@ -19,8 +22,9 @@ export async function createCategoryRequest(categoryData: NewCategory) {
     return { success: false, message: errorMessage };
   }
 
-  const cleanedData: NewCategory = {
-    category_name: result.data.category_name,
+  const cleanedData: Omit<NewCategory, "slug"> = {
+    ...result.data,
+    description: result.data.description ?? null,
   };
 
   try {
@@ -30,7 +34,7 @@ export async function createCategoryRequest(categoryData: NewCategory) {
     if (error instanceof Error && error.message.includes("duplicate key")) {
       return {
         success: false,
-        message: "Nama kategori sudah digunakan, silahkan pilih nama lain",
+        message: "Nama kategori sudah digunakan, silakan pilih nama lain",
       };
     }
 

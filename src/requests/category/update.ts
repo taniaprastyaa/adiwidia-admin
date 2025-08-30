@@ -7,10 +7,14 @@ const updateCategorySchema = z.object({
   category_name: z
     .string()
     .min(2, { message: "Nama kategori minimal 2 karakter" })
-    .trim(),
+    .trim()
+    .optional(),
+  description: z.string().nullable().optional(),
 });
 
-export async function updateCategoryRequest(categoryData: UpdateCategory) {
+export async function updateCategoryRequest(
+  categoryData: Partial<Omit<UpdateCategory, "slug">> & { id: number }
+) {
   const result = updateCategorySchema.safeParse(categoryData);
 
   if (!result.success) {
@@ -20,9 +24,10 @@ export async function updateCategoryRequest(categoryData: UpdateCategory) {
     return { success: false, message: errorMessage };
   }
 
-  const cleanedData: UpdateCategory = {
+  const cleanedData: Partial<Omit<UpdateCategory, "slug">> & { id: number } = {
     id: result.data.id,
-    category_name: result.data.category_name,
+    ...(result.data.category_name && { category_name: result.data.category_name }),
+    description: result.data.description ?? null,
   };
 
   try {

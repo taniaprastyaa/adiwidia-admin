@@ -16,6 +16,14 @@ export function getCategoryColumns({ actions }: CategoryColumnsProps): ColumnDef
       header: "Nama Kategori",
     },
     {
+      accessorKey: "slug",
+      header: "Slug",
+    },
+    {
+      accessorKey: "description",
+      header: "Deskripsi",
+    },
+    {
       id: "actions",
       cell: ({ row }) =>
         actions ? <DataTableActions row={row.original} actions={actions(row.original)} /> : null,

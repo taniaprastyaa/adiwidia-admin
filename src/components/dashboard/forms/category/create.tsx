@@ -18,6 +18,7 @@ export default function CreateCategoryModal({ open, onClose }: CreateCategoryMod
 
   const [form, setForm] = useState({
     category_name: "",
+    description: ""
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +35,7 @@ export default function CreateCategoryModal({ open, onClose }: CreateCategoryMod
     if (result.success) {
       toast.success(result.message);
       onClose();
-      setForm({ category_name: "" }); 
+      setForm({ category_name: "", description: "" }); 
     } else {
       toast.error(result.message);
     }
@@ -46,6 +47,10 @@ export default function CreateCategoryModal({ open, onClose }: CreateCategoryMod
         <div>
           <Label className="block text-sm font-medium mb-2" htmlFor="category_name">Nama Kategori</Label>
           <Input id="category_name" name="category_name" placeholder="Nama Kategori" value={form.category_name} onChange={handleChange} />
+        </div>
+        <div>
+          <Label className="block text-sm font-medium mb-2" htmlFor="description">Deskripsi</Label>
+          <Input id="description" name="description" placeholder="Nama Kategori" value={form.description} onChange={handleChange} />
         </div>
       </div>
     </ActionModal>

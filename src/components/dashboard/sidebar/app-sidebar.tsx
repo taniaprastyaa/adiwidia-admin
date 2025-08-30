@@ -34,16 +34,16 @@ const data = {
       url: "/dashboard/category",
       icon: IconCategory,
     },
-    {
-      title: "Modul",
-      url: "/dashboard/module",
-      icon: IconListDetails,
-    },
-    {
-      title: "Sub Modul",
-      url: "/dashboard/sub-module",
-      icon: IconSubtask, 
-    }
+    // {
+    //   title: "Modul",
+    //   url: "/dashboard/module",
+    //   icon: IconListDetails,
+    // },
+    // {
+    //   title: "Sub Modul",
+    //   url: "/dashboard/sub-module",
+    //   icon: IconSubtask, 
+    // }
   ]
 }
 

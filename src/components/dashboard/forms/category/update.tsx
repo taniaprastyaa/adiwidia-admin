@@ -21,14 +21,16 @@ export default function UpdateCategoryModal({ open, onClose, category,
 
   const [form, setForm] = useState({
     id: 0,
-    category_name: ""
+    category_name: "",
+    description: ""
   });
 
   useEffect(() => {
     if (category) {
       setForm({
         id: category.id,
-        category_name: category.category_name
+        category_name: category.category_name,
+        description: category.description || ""
       });
     }
   }, [category]);
@@ -58,6 +60,10 @@ export default function UpdateCategoryModal({ open, onClose, category,
         <div>
           <Label className="block text-sm font-medium mb-2" htmlFor="category_name">Nama Kategori</Label>
           <Input id="category_name" name="category_name" placeholder="Nama Kategori" value={form.category_name} onChange={handleChange} />
+        </div>
+        <div>
+          <Label className="block text-sm font-medium mb-2" htmlFor="description">Deskripsi</Label>
+          <Input id="description" name="description" placeholder="Nama Kategori" value={form.description} onChange={handleChange} />
         </div>
       </div>
     </ActionModal>
