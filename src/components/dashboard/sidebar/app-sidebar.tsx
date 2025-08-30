@@ -49,6 +49,11 @@ const data = {
       url: "/dashboard/story",
       icon: IconCategory,
     },
+    {
+      title: "Virtual Museum Item",
+      url: "/dashboard/virtual-museum-item",
+      icon: IconCategory,
+    },
     // {
     //   title: "Modul",
     //   url: "/dashboard/module",

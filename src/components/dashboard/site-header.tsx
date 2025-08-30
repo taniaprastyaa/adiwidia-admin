@@ -16,6 +16,10 @@ const pageTitles: Record<string, string> = {
   "/dashboard/story/create": "Halaman Tambah Cerita",
   "/dashboard/story/[id]": "Halaman Detail Cerita",
   "/dashboard/story/[id]/update": "Halaman Update Cerita",
+  "/dashboard/virtual-museum-item": "Halaman Virtual Museum Item",
+  "/dashboard/virtual-museum-item/create": "Halaman Tambah Virtual Museum Item",
+  "/dashboard/virtual-museum-item/[id]": "Halaman Detail Virtual Museum Item",
+  "/dashboard/virtual-museum-item/[id]/update": "Halaman Update Virtual Museum Item",
 }
 
 function getDynamicTitle(pathname: string): string {
@@ -43,6 +47,19 @@ function getDynamicTitle(pathname: string): string {
 
   if (/^\/dashboard\/story\/[^\/]+\/update$/.test(pathname)) {
     return pageTitles["/dashboard/story/[id]/update"]
+  }
+
+  // Virtual Museum Item
+  if (/^\/dashboard\/virtual-museum-item\/[^\/]+$/.test(pathname)) {
+    return pageTitles["/dashboard/virtual-museum-item/create"]
+  } 
+
+  if (/^\/dashboard\/virtual-museum-item\/[^\/]+$/.test(pathname)) {
+    return pageTitles["/dashboard/virtual-museum-item/[id]"]
+  }
+
+  if (/^\/dashboard\/virtual-museum-item\/[^\/]+\/update$/.test(pathname)) {
+    return pageTitles["/dashboard/virtual-museum-item/[id]/update"]
   }
 
   return pageTitles[pathname] ?? "Dashboard"
