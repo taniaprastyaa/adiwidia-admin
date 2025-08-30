@@ -34,6 +34,11 @@ const data = {
       url: "/dashboard/category",
       icon: IconCategory,
     },
+    {
+      title: "Provinsi",
+      url: "/dashboard/province",
+      icon: IconCategory,
+    },
     // {
     //   title: "Modul",
     //   url: "/dashboard/module",
