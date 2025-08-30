@@ -4,9 +4,10 @@ import * as React from "react"
 import {
   IconCategory,
   IconDashboard,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconSubtask,
+  IconMapPin,
+  IconMasksTheater,
+  IconBook2,
+  IconBuildingCarousel,
 } from "@tabler/icons-react"
 
 import { NavMain } from "@/components/dashboard/sidebar/nav-main"
@@ -37,34 +38,24 @@ const data = {
     {
       title: "Provinsi",
       url: "/dashboard/province",
-      icon: IconCategory,
+      icon: IconMapPin,
     },
     {
       title: "Budaya",
       url: "/dashboard/culture",
-      icon: IconCategory,
+      icon: IconMasksTheater,
     },
     {
       title: "Cerita",
       url: "/dashboard/story",
-      icon: IconCategory,
+      icon: IconBook2,
     },
     {
       title: "Virtual Museum Item",
       url: "/dashboard/virtual-museum-item",
-      icon: IconCategory,
+      icon: IconBuildingCarousel,
     },
-    // {
-    //   title: "Modul",
-    //   url: "/dashboard/module",
-    //   icon: IconListDetails,
-    // },
-    // {
-    //   title: "Sub Modul",
-    //   url: "/dashboard/sub-module",
-    //   icon: IconSubtask, 
-    // }
-  ]
+  ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -85,16 +76,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#" className="flex items-center gap-2">
                 <img
-                  src="/img/learnmate-logo.png"
-                  alt="LearnMate Logo"
-                  className="w-9 h-9 object-contain"
+                  src="/img/adiwidia-icon.svg"
+                  alt="Adiwidia Logo"
+                  className="w-8 h-8 object-contain"
                 />
                 <span
-                  className="text-lg font-bold tracking-wide"
-                  style={{ color: "#EBA937" }}
+                  className="text-lg tracking-wide text-primary"
+                  style={{ fontFamily: "'Playwrite BE VLG', sans-serif", fontWeight: 400 }}
                 >
-                  LearnMate
+                  Adiwidia
                 </span>
+
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

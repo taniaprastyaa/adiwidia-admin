@@ -12,16 +12,22 @@ export default function LoginPage() {
       />
       <div className="relative z-10 flex flex-col items-center w-full">
         <Link href="/" className="flex items-center gap-3 mb-8">
+          {/* Ganti logo */}
           <img
-            src="/img/learnmate-logo.png"
-            alt="LearnMate Logo"
+            src="/img/adiwidia-icon.svg"
+            alt="Adiwidia Logo"
             className="w-10 h-10 object-contain"
           />
+          {/* Ganti teks dan font */}
           <span
-            className="text-2xl font-bold tracking-wide"
-            style={{ color: "#EBA937" }}
+            className="text-2xl tracking-wide"
+            style={{
+              color: "#EBA937",
+              fontFamily: "'Playwrite BE VLG', sans-serif",
+              fontWeight: 400,
+            }}
           >
-            LearnMate
+            Adiwidia
           </span>
         </Link>
         <LoginForm className="max-w-md w-full" />

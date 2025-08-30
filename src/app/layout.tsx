@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playwrite_BE_VLG } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 
@@ -11,6 +11,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+export const playwrite = Playwrite_BE_VLG({
+  weight: ["100", "200", "300", "400"], 
+  style: ["normal"], 
+  display: "swap",  
 });
 
 export const metadata: Metadata = {
