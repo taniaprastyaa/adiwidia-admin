@@ -13,10 +13,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const playwrite = Playwrite_BE_VLG({
+const playwrite = Playwrite_BE_VLG({
   weight: ["100", "200", "300", "400"], 
   style: ["normal"], 
   display: "swap",  
+  variable: "--font-playwrite", // tambahin biar bisa dipakai di className
 });
 
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${playwrite.variable} antialiased`}
       >
         {children}
         <Toaster position="top-right" />
