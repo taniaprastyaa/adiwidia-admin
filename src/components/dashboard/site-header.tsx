@@ -7,39 +7,24 @@ import { SidebarTrigger } from "@/components/ui/sidebar"
 const pageTitles: Record<string, string> = {
   "/dashboard": "Dashboard",
   "/dashboard/category": "Halaman Kategori",
-  "/dashboard/module": "Halaman Module",
-  "/dashboard/module/create": "Halaman Tambah Module",
-  "/dashboard/module/[id]": "Halaman Detail Module",
-  "/dashboard/module/[id]/update": "Halaman Update Module",
-  "/dashboard/sub-module": "Halaman Sub Module",
-  "/dashboard/sub-module/create": "Halaman Tambah Sub Module",
-  "/dashboard/sub-module/[id]": "Halaman Detail Sub Module",
-  "/dashboard/sub-module/[id]/update": "Halaman Update Sub Module",
+  "/dashboard/province": "Halaman Provinsi",
+  "/dashboard/culture": "Halaman Budaya",
+  "/dashboard/culture/create": "Halaman Tambah Budaya",
+  "/dashboard/culture/[id]": "Halaman Detail Budaya",
+  "/dashboard/culture/[id]/update": "Halaman Update Budaya",
 }
 
 function getDynamicTitle(pathname: string): string {
-  if (/^\/dashboard\/module\/[^\/]+$/.test(pathname)) {
-    return pageTitles["/dashboard/module/create"]
+  if (/^\/dashboard\/culture\/[^\/]+$/.test(pathname)) {
+    return pageTitles["/dashboard/culture/create"]
   }
 
-  if (/^\/dashboard\/module\/[^\/]+$/.test(pathname)) {
-    return pageTitles["/dashboard/module/[id]"]
+  if (/^\/dashboard\/culture\/[^\/]+$/.test(pathname)) {
+    return pageTitles["/dashboard/culture/[id]"]
   }
 
-  if (/^\/dashboard\/module\/[^\/]+\/update$/.test(pathname)) {
-    return pageTitles["/dashboard/module/[id]/update"]
-  }
-
-  if (/^\/dashboard\/sub-module\/[^\/]+$/.test(pathname)) {
-    return pageTitles["/dashboard/sub-module/create"]
-  }
-
-  if (/^\/dashboard\/sub-module\/[^\/]+$/.test(pathname)) {
-    return pageTitles["/dashboard/sub-module/[id]"]
-  }
-
-  if (/^\/dashboard\/sub-module\/[^\/]+\/update$/.test(pathname)) {
-    return pageTitles["/dashboard/sub-module/[id]/update"]
+  if (/^\/dashboard\/culture\/[^\/]+\/update$/.test(pathname)) {
+    return pageTitles["/dashboard/culture/[id]/update"]
   }
 
   return pageTitles[pathname] ?? "Dashboard"

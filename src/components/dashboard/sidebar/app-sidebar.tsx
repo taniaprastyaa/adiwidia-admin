@@ -39,6 +39,11 @@ const data = {
       url: "/dashboard/province",
       icon: IconCategory,
     },
+    {
+      title: "Budaya",
+      url: "/dashboard/culture",
+      icon: IconCategory,
+    },
     // {
     //   title: "Modul",
     //   url: "/dashboard/module",
