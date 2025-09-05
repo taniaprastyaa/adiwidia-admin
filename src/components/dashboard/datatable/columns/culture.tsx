@@ -23,7 +23,7 @@ export function getCultureColumns({
       accessorKey: "slug",
       header: "Slug",
       cell: ({ row }) => (
-        <div className="font-medium line-clamp-1">{row.getValue("name")}</div>
+        <div className="font-medium line-clamp-1">{row.getValue("slug")}</div>
       ),
     },
     {
