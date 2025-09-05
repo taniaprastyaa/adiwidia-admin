@@ -1,8 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏛️ Adiwidia Admin System
 
-## Getting Started
+Adiwidia adalah platform edukatif-interaktif untuk memperkenalkan, melestarikan, dan menghidupkan kembali kekayaan budaya Nusantara melalui teknologi digital.
+Sistem ini dirancang untuk **menghubungkan generasi muda dengan akar budaya mereka** lewat konten budaya, cerita, dan koleksi museum virtual yang disajikan secara modern dan immersive.
 
-First, run the development server:
+## 🎯 Tentang Sistem Admin
+
+Bagian **Admin Adiwidia** berfungsi sebagai backend management system untuk mengelola data budaya Nusantara. Melalui dashboard admin, pengelola dapat:
+
+* Menambahkan, memperbarui, dan menghapus data **budaya (cultures)**
+* Mengelola **cerita (stories)** terkait daerah/provinsi tertentu
+* Mengatur koleksi **virtual museum items** dengan media 3D
+* Mengelola **kategori** dan **provinsi** sebagai entitas utama
+
+## 🗄️ Struktur Database
+
+Sistem ini menggunakan Supabase sebagai layanan database & autentikasi, dengan tabel utama:
+
+* **categories** → menyimpan kategori budaya
+* **provinces** → menyimpan daftar provinsi
+* **cultures** → data budaya beserta relasinya ke kategori & provinsi
+* **stories** → cerita rakyat / sejarah berbasis provinsi
+* **virtual\_museum\_items** → koleksi museum virtual dengan media 3D
+
+## 📊 Statistik Dashboard
+
+Dashboard admin dilengkapi fitur analitik:
+
+* **Card Statistik**
+
+  * Total Budaya
+  * Total Cerita
+  * Total Virtual Museum Items
+  * Jumlah Kategori
+
+* **Area Chart**
+
+  * Menampilkan jumlah budaya per bulan
+
+* **Pie Chart**
+
+  * Distribusi budaya berdasarkan kategori
+
+## 🚀 Teknologi yang Digunakan
+
+* [Next.js](https://nextjs.org/) – framework React modern
+* [Supabase](https://supabase.com/) – database, autentikasi, & API
+* [Zustand](https://zustand-demo.pmnd.rs/) – state management sederhana & ringan
+* [Tailwind CSS](https://tailwindcss.com/) – styling utility-first
+* [shadcn/ui](https://ui.shadcn.com/) – komponen UI modern
+
+## 🛠️ Development
+
+Jalankan server development:
 
 ```bash
 npm run dev
@@ -14,23 +63,4 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Buka [http://localhost:3000](http://localhost:3000) untuk melihat aplikasi.
