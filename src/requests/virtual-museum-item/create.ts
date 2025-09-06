@@ -9,7 +9,6 @@ const createVirtualMuseumItemSchema = z.object({
   content: z.string().nullable().optional(),
   media_3d_url: z
     .string()
-    .url({ message: "URL 3D tidak valid" })
     .nullable()
     .optional(),
 });

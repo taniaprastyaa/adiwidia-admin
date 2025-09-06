@@ -13,7 +13,6 @@ const updateVirtualMuseumItemSchema = z.object({
   content: z.string().nullable().optional(),
   media_3d_url: z
     .string()
-    .url({ message: "URL media 3D tidak valid" })
     .nullable()
     .optional(),
 });
