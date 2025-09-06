@@ -4,6 +4,7 @@ import { useVirtualMuseumItemStore } from "@/stores/virtualMuseumItemStore";
 
 const createVirtualMuseumItemSchema = z.object({
   name: z.string().min(2, { message: "Nama item minimal 2 karakter" }).trim(),
+  description: z.string().nullable().optional(),
   province_id: z.number().int({ message: "Provinsi harus berupa angka bulat" }),
   category_id: z.number().int({ message: "Kategori harus berupa angka bulat" }),
   content: z.string().nullable().optional(),
@@ -27,6 +28,7 @@ export async function createVirtualMuseumItemRequest(
 
   const cleanedData: Omit<NewVirtualMuseumItem, "slug"> = {
     ...result.data,
+    description: result.data.description ?? null,
     content: result.data.content ?? null,
     media_3d_url: result.data.media_3d_url ?? null,
   };

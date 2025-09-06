@@ -3,6 +3,7 @@ export interface VirtualMuseumItem {
   province_id: number;
   category_id: number;
   name: string;
+  description?: string | null;
   content?: string | null;
   media_3d_url?: string | null;
   slug: string;

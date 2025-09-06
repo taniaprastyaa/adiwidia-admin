@@ -9,6 +9,7 @@ import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor
 import { createVirtualMuseumItemRequest } from "@/requests/virtual-museum-item/create";
 import { useProvinceStore } from "@/stores/provinceStore";
 import { useCategoryStore } from "@/stores/categoryStore";
+import { Textarea } from "@/components/ui/textarea";
 
 import {
   Select,
@@ -29,6 +30,7 @@ export default function CreateVirtualMuseumItemForm() {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [media3dUrl, setMedia3dUrl] = useState("");
+  const [description, setDescription] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -46,6 +48,7 @@ export default function CreateVirtualMuseumItemForm() {
       category_id: parseInt(categoryId),
       content,
       media_3d_url: media3dUrl || null,
+      description: description || null,
     });
 
     setLoading(false);
@@ -108,6 +111,17 @@ export default function CreateVirtualMuseumItemForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Nama item virtual museum"
+          />
+        </div>
+
+        {/* Deskripsi */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Deskripsi</label>
+          <Textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Deskripsi singkat item virtual museum"
+            className="min-h-[80px]"
           />
         </div>
 

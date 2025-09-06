@@ -35,6 +35,16 @@ export default function VirtualMuseumItemDetailForm() {
         <Input value={selectedItem.name || "-"} readOnly />
       </div>
 
+      {/* Deskripsi */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Deskripsi</label>
+        <div className="border rounded-md p-3 min-h-[80px] bg-white text-sm">
+          {selectedItem.description || (
+            <p className="text-muted-foreground italic">Tidak ada deskripsi</p>
+          )}
+        </div>
+      </div>
+
       {/* Slug */}
       <div>
         <label className="block text-sm font-medium mb-1">Slug</label>

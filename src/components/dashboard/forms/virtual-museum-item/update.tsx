@@ -11,6 +11,7 @@ import { useVirtualMuseumItemStore } from "@/stores/virtualMuseumItemStore";
 import { useProvinceStore } from "@/stores/provinceStore";
 import { useCategoryStore } from "@/stores/categoryStore";
 import { updateVirtualMuseumItemRequest } from "@/requests/virtual-museum-item/update";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function UpdateVirtualMuseumItemForm() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export default function UpdateVirtualMuseumItemForm() {
   const [categoryId, setCategoryId] = useState("");
   const [content, setContent] = useState("<p></p>");
   const [media3dUrl, setMedia3dUrl] = useState("");
+  const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ export default function UpdateVirtualMuseumItemForm() {
   useEffect(() => {
     if (selectedItem) {
       setName(selectedItem.name || "");
+      setDescription(selectedItem.description || "");
       setProvinceId(String(selectedItem.province_id) || "");
       setCategoryId(String(selectedItem.category_id) || "");
       setContent(selectedItem.content || "<p></p>");
@@ -57,6 +60,7 @@ export default function UpdateVirtualMuseumItemForm() {
     const result = await updateVirtualMuseumItemRequest({
       id: itemId,
       name,
+      description: description || null,
       province_id: parseInt(provinceId),
       category_id: parseInt(categoryId),
       content,
@@ -88,6 +92,16 @@ export default function UpdateVirtualMuseumItemForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Nama item virtual museum"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Deskripsi</label>
+          <Textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Deskripsi singkat item virtual museum"
+            className="min-h-[80px]"
           />
         </div>
 
