@@ -33,6 +33,7 @@ export async function createCultureRequest(
     content: result.data.content ?? null,
     media_url: result.data.media_url ?? null,
     location: result.data.location ?? null,
+    maps_url: result.data.maps_url ?? null,
   };
 
   try {
