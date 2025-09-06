@@ -13,6 +13,7 @@ const createCultureSchema = z.object({
     .nullable()
     .optional(),
   location: z.string().nullable().optional(),
+  maps_url: z.string().url({ message: "URL peta tidak valid" }).nullable().optional(),
 });
 
 export async function createCultureRequest(
@@ -31,6 +32,7 @@ export async function createCultureRequest(
     ...result.data,
     content: result.data.content ?? null,
     media_url: result.data.media_url ?? null,
+    location: result.data.location ?? null,
   };
 
   try {

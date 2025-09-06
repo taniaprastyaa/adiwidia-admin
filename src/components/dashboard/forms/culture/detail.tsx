@@ -83,6 +83,24 @@ export default function CultureDetailForm() {
         <label className="block text-sm font-medium mb-1">Lokasi (Jika Destinasi Budaya)</label>
         <Input value={selectedCulture.location || "-"} readOnly />
       </div>
+
+      {/* Maps URL */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Maps URL</label>
+        {selectedCulture.maps_url ? (
+          <a
+            href={selectedCulture.maps_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline text-sm"
+          >
+            {selectedCulture.maps_url}
+          </a>
+        ) : (
+          <p className="text-sm text-muted-foreground italic">Tidak ada Maps URL</p>
+        )}
+      </div>
+
     </div>
   );
 }

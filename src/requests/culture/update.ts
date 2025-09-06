@@ -17,6 +17,7 @@ const updateCultureSchema = z.object({
   content: z.string().nullable().optional(),
   media_url: z.string().url({ message: "URL media tidak valid" }).nullable().optional(),
   location: z.string().nullable().optional(),
+  maps_url: z.string().url({ message: "URL peta tidak valid" }).nullable().optional(),
 });
 
 export async function updateCultureRequest(cultureData: UpdateCulture) {
@@ -33,6 +34,7 @@ export async function updateCultureRequest(cultureData: UpdateCulture) {
     ...result.data,
     content: result.data.content ?? null,
     media_url: result.data.media_url ?? null,
+    location: result.data.location ?? null,
   };
 
   try {

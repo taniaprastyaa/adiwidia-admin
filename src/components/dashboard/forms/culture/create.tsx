@@ -30,6 +30,7 @@ export default function CreateCultureForm() {
   const [content, setContent] = useState("");
   const [mediaUrl, setMediaUrl] = useState("");
   const [location, setLocation] = useState("");
+  const [mapsUrl, setMapsUrl] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -48,6 +49,7 @@ export default function CreateCultureForm() {
       content,
       media_url: mediaUrl || null,
       location: location || null,
+      maps_url: mapsUrl || null,
     });
 
     setLoading(false);
@@ -138,6 +140,17 @@ export default function CreateCultureForm() {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Lokasi"
+          />
+        </div>
+
+        {/* Maps URL */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Maps URL</label>
+          <Input
+            type="url"
+            value={mapsUrl}
+            onChange={(e) => setMapsUrl(e.target.value)}
+            placeholder="https://www.google.com/maps/place/..."
           />
         </div>
 

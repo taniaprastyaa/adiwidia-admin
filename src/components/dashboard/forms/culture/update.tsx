@@ -27,6 +27,7 @@ export default function UpdateCultureForm() {
   const [content, setContent] = useState("<p></p>");
   const [mediaUrl, setMediaUrl] = useState("");
   const [location, setLocation] = useState("");
+  const [mapsUrl, setMapsUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -46,6 +47,7 @@ export default function UpdateCultureForm() {
       setContent(selectedCulture.content || "<p></p>");
       setMediaUrl(selectedCulture.media_url || "");
       setLocation(selectedCulture.location || "");
+      setMapsUrl(selectedCulture.maps_url || "");
     }
   }, [selectedCulture]);
 
@@ -64,6 +66,7 @@ export default function UpdateCultureForm() {
       content,
       media_url: mediaUrl || null,
       location: location || null,
+      maps_url: mapsUrl || null,
     });
 
     setLoading(false);
@@ -90,7 +93,7 @@ export default function UpdateCultureForm() {
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Nama culture"
+            placeholder="Nama budaya"
           />
         </div>
 
@@ -136,6 +139,7 @@ export default function UpdateCultureForm() {
         <div>
           <label className="block text-sm font-medium mb-1">Media URL</label>
           <Input
+            type="url"
             value={mediaUrl}
             onChange={(e) => setMediaUrl(e.target.value)}
             placeholder="https://contoh.com/media.jpg"
@@ -148,6 +152,17 @@ export default function UpdateCultureForm() {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Lokasi"
+          />
+        </div>
+
+        {/* Maps URL */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Maps URL</label>
+          <Input
+            type="url"
+            value={mapsUrl}
+            onChange={(e) => setMapsUrl(e.target.value)}
+            placeholder="https://www.google.com/maps/place/..."
           />
         </div>
 
