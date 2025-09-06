@@ -29,6 +29,7 @@ export default function CreateCultureForm() {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [mediaUrl, setMediaUrl] = useState("");
+  const [location, setLocation] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -46,6 +47,7 @@ export default function CreateCultureForm() {
       category_id: parseInt(categoryId),
       content,
       media_url: mediaUrl || null,
+      location: location || null,
     });
 
     setLoading(false);
@@ -127,6 +129,15 @@ export default function CreateCultureForm() {
             value={mediaUrl}
             onChange={(e) => setMediaUrl(e.target.value)}
             placeholder="https://example.com/media.jpg"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Lokasi (Jika Destinasi Budaya)</label>
+          <Input
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Lokasi"
           />
         </div>
 

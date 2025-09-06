@@ -5,6 +5,7 @@ export interface Culture {
   name: string;
   content?: string | null;
   media_url?: string | null;
+  location?: string | null;
   slug: string;
   category_name?: string;
   province_name?: string;

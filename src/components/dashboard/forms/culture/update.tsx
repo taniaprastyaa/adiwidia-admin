@@ -26,6 +26,7 @@ export default function UpdateCultureForm() {
   const [categoryId, setCategoryId] = useState("");
   const [content, setContent] = useState("<p></p>");
   const [mediaUrl, setMediaUrl] = useState("");
+  const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -44,6 +45,7 @@ export default function UpdateCultureForm() {
       setCategoryId(String(selectedCulture.category_id) || "");
       setContent(selectedCulture.content || "<p></p>");
       setMediaUrl(selectedCulture.media_url || "");
+      setLocation(selectedCulture.location || "");
     }
   }, [selectedCulture]);
 
@@ -61,6 +63,7 @@ export default function UpdateCultureForm() {
       category_id: parseInt(categoryId),
       content,
       media_url: mediaUrl || null,
+      location: location || null,
     });
 
     setLoading(false);
@@ -136,6 +139,15 @@ export default function UpdateCultureForm() {
             value={mediaUrl}
             onChange={(e) => setMediaUrl(e.target.value)}
             placeholder="https://contoh.com/media.jpg"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Lokasi (Jika Destinasi Budaya)</label>
+          <Input
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Lokasi"
           />
         </div>
 

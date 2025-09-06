@@ -16,6 +16,7 @@ const updateCultureSchema = z.object({
     .int({ message: "Kategori harus berupa angka bulat" }),
   content: z.string().nullable().optional(),
   media_url: z.string().url({ message: "URL media tidak valid" }).nullable().optional(),
+  location: z.string().nullable().optional(),
 });
 
 export async function updateCultureRequest(cultureData: UpdateCulture) {

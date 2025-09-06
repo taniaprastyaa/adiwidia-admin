@@ -12,6 +12,7 @@ const createCultureSchema = z.object({
     .url({ message: "URL media tidak valid" })
     .nullable()
     .optional(),
+  location: z.string().nullable().optional(),
 });
 
 export async function createCultureRequest(

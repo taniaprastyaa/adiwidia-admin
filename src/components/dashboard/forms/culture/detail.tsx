@@ -77,6 +77,12 @@ export default function CultureDetailForm() {
           <p className="text-sm text-muted-foreground italic">Tidak ada media</p>
         )}
       </div>
+
+      {/* Location Culture */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Lokasi (Jika Destinasi Budaya)</label>
+        <Input value={selectedCulture.location || "-"} readOnly />
+      </div>
     </div>
   );
 }
