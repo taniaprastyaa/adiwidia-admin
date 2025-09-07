@@ -45,26 +45,6 @@ export function getVirtualMuseumItemColumns({
       ),
     },
     {
-      accessorKey: "media_3d_url",
-      header: "Media 3D",
-      cell: ({ row }) => {
-        const url = row.getValue("media_3d_url") as string | null | undefined;
-
-        return url ? (
-          <a
-            href={url} // pastikan TypeScript tahu ini string
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 underline text-sm"
-          >
-            Lihat 3D
-          </a>
-        ) : (
-          <span className="text-sm text-muted-foreground italic">Tidak ada</span>
-        );
-      },
-    },
-    {
       id: "actions",
       cell: ({ row }) =>
         actions ? (
