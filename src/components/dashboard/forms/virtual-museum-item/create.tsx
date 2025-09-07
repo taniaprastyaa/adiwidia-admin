@@ -137,7 +137,6 @@ export default function CreateVirtualMuseumItemForm() {
         <div>
           <label className="block text-sm font-medium mb-1">Media 3D URL</label>
           <Input
-            type="url"
             value={media3dUrl}
             onChange={(e) => setMedia3dUrl(e.target.value)}
             placeholder="https://example.com/model.glb"
