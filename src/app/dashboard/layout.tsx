@@ -5,6 +5,45 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 import React from "react";
+import type {Metadata} from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard Admin Adiwidia - Budaya Inovasi Digital",
+  description: "Adiwidia: Platform digital interaktif untuk melestarikan budaya Indonesia melalui inovasi dan eksplorasi virtual.",
+  openGraph: {
+    title: "Dashboard Admin Adiwidia - Budaya Inovasi Digital",
+    description: "Adiwidia: Platform digital interaktif untuk melestarikan budaya Indonesia melalui inovasi dan eksplorasi virtual.",
+    url: "https://adiwidia-admin.vercel.app/",
+    siteName: "Adiwidia",
+    images: [
+      {
+        url: "/favicon/android-chrome-512x512.png",
+        width: 1200,
+        height: 1200,
+        alt: "Adiwidia Logo",
+      },
+    ],
+    locale: "id_ID",
+    type: "website",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon/favicon.ico" },
+      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    apple: [
+      { url: "/favicon/apple-touch-icon.png", sizes: "180x180" },
+    ],
+    shortcut: "/favicon/favicon.ico",
+  },
+  other: {
+    "apple-mobile-web-app-title": "Adiwidia",
+  },
+  manifest: "/favicon/manifest.json",
+};
 
 export default async function RootLayout({children}: Readonly<{
   children: React.ReactNode;
