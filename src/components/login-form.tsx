@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { supabaseClient } from "@/utils/supabase"
 import { toast } from "sonner"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 export function LoginForm({
   className,
@@ -23,6 +23,7 @@ export function LoginForm({
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const supabase = supabaseClient
 
     const handleSignIn = async (e: React.FormEvent) => {
@@ -39,7 +40,8 @@ export function LoginForm({
     if (login.error) {
       toast.error('Gagal Login. Periksa email dan password kembali!')
     } else {
-      redirect('/dashboard')
+      router.push('/dashboard')
+      router.refresh()
     }
   }
 
