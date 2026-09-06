@@ -8,6 +8,7 @@ import {
   IconMasksTheater,
   IconBook2,
   IconBuildingCarousel,
+  IconView360,
 } from "@tabler/icons-react"
 
 import { NavMain } from "@/components/dashboard/sidebar/nav-main"
@@ -54,6 +55,11 @@ const data = {
       title: "Virtual Museum Item",
       url: "/dashboard/virtual-museum-item",
       icon: IconBuildingCarousel,
+    },
+    {
+      title: "Museum",
+      url: "/dashboard/museum",
+      icon: IconView360,
     },
   ],
 }
