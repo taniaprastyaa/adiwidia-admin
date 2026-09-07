@@ -2,7 +2,8 @@
 # Salin file ini menjadi demo-account.txt lalu isi kredensial nyata.
 # demo-account.txt di-ignore oleh git.
 
-URL login : http://localhost:3000/login
+URL demo  : https://adiwidia-admin.vercel.app/
+URL lokal : http://localhost:3000/login
 Peran     : Admin
 Email     : admin@example.tes
 Password  : ganti-dengan-password-demo
