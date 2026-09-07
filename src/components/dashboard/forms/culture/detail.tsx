@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { useCultureStore } from "@/stores/cultureStore";
+import { safeHtmlForRender } from "@/lib/content-security";
 
 export default function CultureDetailForm() {
   const { id } = useParams();
@@ -59,7 +60,7 @@ export default function CultureDetailForm() {
         <div
           className="border rounded-md p-3 min-h-[150px] bg-white text-sm prose max-h-96 overflow-y-auto"
           dangerouslySetInnerHTML={{
-            __html: content || "<p><em>Tidak ada konten</em></p>",
+            __html: safeHtmlForRender(content),
           }}
         />
       </div>

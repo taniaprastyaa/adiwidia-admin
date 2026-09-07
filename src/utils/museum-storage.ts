@@ -1,4 +1,5 @@
 import { supabaseClient } from "@/utils/supabase";
+import { assertValidPanoramaFile } from "@/lib/content-security";
 
 const BUCKET = "museum-panoramas";
 
@@ -13,8 +14,11 @@ function sanitizeFileName(name: string) {
  * Upload panorama image to Supabase Storage and return its public URL.
  */
 export async function uploadMuseumPanorama(file: File): Promise<string> {
-  const ext = file.name.split(".").pop() || "jpg";
-  const path = `${Date.now()}-${sanitizeFileName(file.name.replace(/\.[^.]+$/, ""))}.${ext}`;
+  assertValidPanoramaFile(file);
+
+  const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+  const safeExt = ["jpg", "jpeg", "png", "webp"].includes(ext) ? ext : "jpg";
+  const path = `${Date.now()}-${sanitizeFileName(file.name.replace(/\.[^.]+$/, ""))}.${safeExt}`;
 
   const { error } = await supabaseClient.storage
     .from(BUCKET)

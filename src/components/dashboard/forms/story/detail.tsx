@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { useStoryStore } from "@/stores/storyStore";
+import {
+  safeHtmlForRender,
+  toYouTubeEmbedUrl,
+} from "@/lib/content-security";
 
 export default function StoryDetailForm() {
   const { id } = useParams();
@@ -53,7 +57,7 @@ export default function StoryDetailForm() {
         <div
           className="border rounded-md p-3 min-h-[150px] bg-white text-sm prose max-h-96 overflow-y-auto"
           dangerouslySetInnerHTML={{
-            __html: contentText || "<p><em>Tidak ada konten</em></p>",
+            __html: safeHtmlForRender(contentText),
           }}
         />
       </div>
@@ -64,10 +68,11 @@ export default function StoryDetailForm() {
         {selectedStory.content_video_url ? (
           <div className="aspect-video rounded-md shadow-md overflow-hidden">
             <iframe
-              src={selectedStory.content_video_url.replace("youtu.be/", "www.youtube.com/embed/")}
+              src={toYouTubeEmbedUrl(selectedStory.content_video_url)}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
               className="w-full h-full"
             />
           </div>

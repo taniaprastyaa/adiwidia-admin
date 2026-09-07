@@ -1,15 +1,16 @@
 import { z } from "zod";
 import { useCategoryStore } from "@/stores/categoryStore";
 import type { UpdateCategory } from "@/types";
+import {
+  CONTENT_LIMITS,
+  optionalPlainText,
+  requiredName,
+} from "@/lib/content-security";
 
 const updateCategorySchema = z.object({
   id: z.number().int({ message: "ID kategori harus berupa angka bulat" }),
-  category_name: z
-    .string()
-    .min(2, { message: "Nama kategori minimal 2 karakter" })
-    .trim()
-    .optional(),
-  description: z.string().nullable().optional(),
+  category_name: requiredName(2, "Nama kategori").optional(),
+  description: optionalPlainText(CONTENT_LIMITS.descriptionPlain, "Deskripsi"),
 });
 
 export async function updateCategoryRequest(

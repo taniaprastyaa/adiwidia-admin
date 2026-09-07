@@ -1,17 +1,19 @@
 import { z } from "zod";
 import type { NewMuseumScene } from "@/types";
 import { useMuseumSceneStore } from "@/stores/museumSceneStore";
-
-const panoramaUrlSchema = z
-  .string()
-  .trim()
-  .url({ message: "URL panorama Storage tidak valid" });
+import {
+  CONTENT_LIMITS,
+  optionalHtmlContent,
+  optionalPlainText,
+  requiredHttpUrl,
+  requiredName,
+} from "@/lib/content-security";
 
 const createMuseumSceneSchema = z.object({
-  name: z.string().min(2, { message: "Nama bagian minimal 2 karakter" }).trim(),
-  panorama_url: panoramaUrlSchema,
-  description: z.string().nullable().optional(),
-  ai_context: z.string().nullable().optional(),
+  name: requiredName(2, "Nama bagian"),
+  panorama_url: requiredHttpUrl("URL panorama Storage"),
+  description: optionalHtmlContent(),
+  ai_context: optionalPlainText(CONTENT_LIMITS.aiContext, "Konteks AI"),
   sort_order: z.number().int({ message: "Urutan harus angka bulat" }),
   is_published: z.boolean(),
 });

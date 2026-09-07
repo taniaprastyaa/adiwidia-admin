@@ -1,17 +1,18 @@
 import { z } from "zod";
 import { useStoryStore } from "@/stores/storyStore";
 import type { UpdateStory } from "@/types";
+import {
+  optionalHtmlContent,
+  optionalYouTubeUrl,
+  requiredTitle,
+} from "@/lib/content-security";
 
 const updateStorySchema = z.object({
   id: z.number().int({ message: "ID cerita harus berupa angka bulat" }),
-  title: z.string().min(2, { message: "Judul cerita minimal 2 karakter" }).trim(),
+  title: requiredTitle(2, "Judul cerita"),
   province_id: z.number().int({ message: "Provinsi harus berupa angka bulat" }),
-  content_text: z.string().nullable().optional(),
-  content_video_url: z
-    .string()
-    .url({ message: "URL video tidak valid" })
-    .nullable()
-    .optional(),
+  content_text: optionalHtmlContent(),
+  content_video_url: optionalYouTubeUrl,
 });
 
 export async function updateStoryRequest(storyData: UpdateStory) {

@@ -1,13 +1,15 @@
 import { z } from "zod";
 import type { NewCategory } from "@/types";
 import { useCategoryStore } from "@/stores/categoryStore";
+import {
+  CONTENT_LIMITS,
+  optionalPlainText,
+  requiredName,
+} from "@/lib/content-security";
 
 const createCategorySchema = z.object({
-  category_name: z
-    .string()
-    .min(2, { message: "Nama kategori minimal 2 karakter" })
-    .trim(),
-  description: z.string().nullable().optional(),
+  category_name: requiredName(2, "Nama kategori"),
+  description: optionalPlainText(CONTENT_LIMITS.descriptionPlain, "Deskripsi"),
 });
 
 export async function createCategoryRequest(

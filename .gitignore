@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# local demo credentials (do not commit)
+demo-account.txt
+
 # vercel
 .vercel
 

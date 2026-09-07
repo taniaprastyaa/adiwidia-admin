@@ -1,21 +1,22 @@
 import { z } from "zod";
 import { useVirtualMuseumItemStore } from "@/stores/virtualMuseumItemStore";
 import type { UpdateVirtualMuseumItem } from "@/types";
+import {
+  CONTENT_LIMITS,
+  optionalHtmlContent,
+  optionalHttpUrl,
+  optionalPlainText,
+  requiredName,
+} from "@/lib/content-security";
 
 const updateVirtualMuseumItemSchema = z.object({
   id: z.number().int({ message: "ID item harus berupa angka bulat" }),
-  name: z
-    .string()
-    .min(2, { message: "Nama item minimal 2 karakter" })
-    .trim(),
-  description: z.string().nullable().optional(),
+  name: requiredName(2, "Nama item"),
+  description: optionalPlainText(CONTENT_LIMITS.descriptionPlain, "Deskripsi"),
   province_id: z.number().int({ message: "Provinsi harus berupa angka bulat" }),
   category_id: z.number().int({ message: "Kategori harus berupa angka bulat" }),
-  content: z.string().nullable().optional(),
-  media_3d_url: z
-    .string()
-    .nullable()
-    .optional(),
+  content: optionalHtmlContent(),
+  media_3d_url: optionalHttpUrl("URL media 3D"),
 });
 
 export async function updateVirtualMuseumItemRequest(

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { useMuseumSceneStore } from "@/stores/museumSceneStore";
+import { safeHtmlForRender } from "@/lib/content-security";
 
 export default function MuseumSceneDetailForm() {
   const { id } = useParams();
@@ -73,7 +74,10 @@ export default function MuseumSceneDetailForm() {
         <div
           className="border rounded-md p-3 min-h-[150px] bg-white text-sm prose max-h-96 overflow-y-auto"
           dangerouslySetInnerHTML={{
-            __html: description || "<p><em>Tidak ada deskripsi</em></p>",
+            __html: safeHtmlForRender(
+              description,
+              "<p><em>Tidak ada deskripsi</em></p>"
+            ),
           }}
         />
       </div>

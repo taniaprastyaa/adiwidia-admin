@@ -1,18 +1,19 @@
 import { z } from "zod";
 import type { NewStory } from "@/types";
 import { useStoryStore } from "@/stores/storyStore";
+import {
+  optionalHtmlContent,
+  optionalYouTubeUrl,
+  requiredTitle,
+} from "@/lib/content-security";
 
 const createStorySchema = z.object({
-  title: z.string().min(3, { message: "Judul minimal 3 karakter" }).trim(),
+  title: requiredTitle(3, "Judul"),
   province_id: z
     .number()
     .int({ message: "Provinsi harus berupa angka bulat" }),
-  content_text: z.string().nullable().optional(),
-  content_video_url: z
-    .string()
-    .url({ message: "URL video tidak valid" })
-    .nullable()
-    .optional(),
+  content_text: optionalHtmlContent(),
+  content_video_url: optionalYouTubeUrl,
 });
 
 export async function createStoryRequest(storyData: Omit<NewStory, "slug">) {

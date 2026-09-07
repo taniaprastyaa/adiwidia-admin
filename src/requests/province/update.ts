@@ -1,15 +1,16 @@
 import { z } from "zod";
 import { useProvinceStore } from "@/stores/provinceStore";
 import type { UpdateProvince } from "@/types";
+import {
+  CONTENT_LIMITS,
+  optionalPlainText,
+  requiredName,
+} from "@/lib/content-security";
 
 const updateProvinceSchema = z.object({
   id: z.number().int({ message: "ID provinsi harus berupa angka bulat" }),
-  name: z
-    .string()
-    .min(2, { message: "Nama provinsi minimal 2 karakter" })
-    .trim()
-    .optional(),
-  description: z.string().nullable().optional(),
+  name: requiredName(2, "Nama provinsi").optional(),
+  description: optionalPlainText(CONTENT_LIMITS.descriptionPlain, "Deskripsi"),
 });
 
 export async function updateProvinceRequest(

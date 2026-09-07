@@ -1,19 +1,22 @@
 import { z } from "zod";
 import type { NewCulture } from "@/types";
 import { useCultureStore } from "@/stores/cultureStore";
+import {
+  CONTENT_LIMITS,
+  optionalHtmlContent,
+  optionalHttpUrl,
+  optionalPlainText,
+  requiredName,
+} from "@/lib/content-security";
 
 const createCultureSchema = z.object({
-  name: z.string().min(2, { message: "Nama budaya minimal 2 karakter" }).trim(),
+  name: requiredName(2, "Nama budaya"),
   province_id: z.number().int({ message: "Provinsi harus berupa angka bulat" }),
   category_id: z.number().int({ message: "Kategori harus berupa angka bulat" }),
-  content: z.string().nullable().optional(),
-  media_url: z
-    .string()
-    .url({ message: "URL media tidak valid" })
-    .nullable()
-    .optional(),
-  location: z.string().nullable().optional(),
-  maps_url: z.string().url({ message: "URL peta tidak valid" }).nullable().optional(),
+  content: optionalHtmlContent(),
+  media_url: optionalHttpUrl("URL media"),
+  location: optionalPlainText(CONTENT_LIMITS.location, "Lokasi"),
+  maps_url: optionalHttpUrl("URL peta"),
 });
 
 export async function createCultureRequest(

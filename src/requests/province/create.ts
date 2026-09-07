@@ -1,13 +1,15 @@
 import { z } from "zod";
 import type { NewProvince } from "@/types";
 import { useProvinceStore } from "@/stores/provinceStore";
+import {
+  CONTENT_LIMITS,
+  optionalPlainText,
+  requiredName,
+} from "@/lib/content-security";
 
 const createProvinceSchema = z.object({
-  name: z
-    .string()
-    .min(2, { message: "Nama provinsi minimal 2 karakter" })
-    .trim(),
-  description: z.string().nullable().optional(),
+  name: requiredName(2, "Nama provinsi"),
+  description: optionalPlainText(CONTENT_LIMITS.descriptionPlain, "Deskripsi"),
 });
 
 export async function createProvinceRequest(

@@ -1,66 +1,137 @@
-# 🏛️ Adiwidia Admin System
+# Adiwidia Admin
 
 Adiwidia adalah platform edukatif-interaktif untuk memperkenalkan, melestarikan, dan menghidupkan kembali kekayaan budaya Nusantara melalui teknologi digital.
-Sistem ini dirancang untuk **menghubungkan generasi muda dengan akar budaya mereka** lewat konten budaya, cerita, dan koleksi museum virtual yang disajikan secara modern dan immersive.
 
-## 🎯 Tentang Sistem Admin
+Aplikasi **Adiwidia Admin** adalah backend management system untuk mengelola data budaya, cerita rakyat, koleksi museum virtual, dan scene virtual tour 360°.
 
-Bagian **Admin Adiwidia** berfungsi sebagai backend management system untuk mengelola data budaya Nusantara. Melalui dashboard admin, pengelola dapat:
+## Fitur utama
 
-* Menambahkan, memperbarui, dan menghapus data **budaya (cultures)**
-* Mengelola **cerita (stories)** terkait daerah/provinsi tertentu
-* Mengatur koleksi **virtual museum items** dengan media 3D
-* Mengelola **kategori** dan **provinsi** sebagai entitas utama
+- CRUD **budaya (cultures)** beserta kategori & provinsi
+- CRUD **cerita (stories)** berbasis provinsi
+- CRUD **virtual museum items** (media 3D)
+- CRUD **museum scenes** (panorama 360°, deskripsi, AI context)
+- Manajemen **categories** dan **provinces**
+- Dashboard statistik (total data, chart budaya per bulan, distribusi per kategori)
 
-## 🗄️ Struktur Database
+## Spesifikasi lingkungan pengujian
 
-Sistem ini menggunakan Supabase sebagai layanan database & autentikasi, dengan tabel utama:
+| Komponen | Versi / keterangan |
+| --- | --- |
+| OS | Linux, macOS, atau Windows 10/11 |
+| Node.js | **20.x LTS** atau **22.x** (disarankan) |
+| npm | **10.x** atau lebih baru |
+| Framework | Next.js **15.4** (App Router) |
+| Runtime UI | React **19** |
+| Bahasa | TypeScript **5** |
+| Database & Auth | Supabase (PostgreSQL + Auth + Storage) |
+| Browser uji | Chrome / Edge / Firefox versi terkini |
+| Port lokal | `http://localhost:3000` |
 
-* **categories** → menyimpan kategori budaya
-* **provinces** → menyimpan daftar provinsi
-* **cultures** → data budaya beserta relasinya ke kategori & provinsi
-* **stories** → cerita rakyat / sejarah berbasis provinsi
-* **virtual\_museum\_items** → koleksi museum virtual dengan media 3D
+Perintah verifikasi cepat:
 
-## 📊 Statistik Dashboard
+```bash
+node -v   # contoh: v22.x
+npm -v    # contoh: 10.x
+```
 
-Dashboard admin dilengkapi fitur analitik:
+## Instalasi
 
-* **Card Statistik**
+### 1. Clone & install dependensi
 
-  * Total Budaya
-  * Total Cerita
-  * Total Virtual Museum Items
-  * Jumlah Kategori
+```bash
+git clone <url-repo-adiwidia-admin>
+cd adiwidia-admin
+npm install
+```
 
-* **Area Chart**
+### 2. Konfigurasi environment
 
-  * Menampilkan jumlah budaya per bulan
+Buat file `.env` di root proyek:
 
-* **Pie Chart**
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+```
 
-  * Distribusi budaya berdasarkan kategori
+Nilai diambil dari Supabase Dashboard → **Project Settings → API**.
 
-## 🚀 Teknologi yang Digunakan
+### 3. Siapkan database (Supabase SQL Editor)
 
-* [Next.js](https://nextjs.org/) – framework React modern
-* [Supabase](https://supabase.com/) – database, autentikasi, & API
-* [Zustand](https://zustand-demo.pmnd.rs/) – state management sederhana & ringan
-* [Tailwind CSS](https://tailwindcss.com/) – styling utility-first
-* [shadcn/ui](https://ui.shadcn.com/) – komponen UI modern
+Jalankan migrasi berurutan sesuai kebutuhan:
 
-## 🛠️ Development
+| Urutan | File | Fungsi |
+| --- | --- | --- |
+| 1 | `migrations/001_adiwidia_supabase_schema.sql` | Schema, view, RPC, RLS admin |
+| 2 | `migrations/002_adiwidia_supabase_seed.sql` | Seed data awal (TRUNCATE tabel inti) |
+| 3 | `migrations/003_museum_scenes.sql` | Tabel museum scenes |
+| 4 | `migrations/005_museum_panorama_storage.sql` | Bucket Storage panorama |
+| 5 | `migrations/004_museum_scenes_seed.sql` | Seed scene museum (opsional) |
+| 6 | `migrations/006_anon_select_all.sql` | Policy SELECT untuk role `anon` |
+| 7 | `migrations/007_replace_stories_from_seed.sql` | Timpa ulang data `stories` saja |
 
-Jalankan server development:
+> **Catatan:** `002` melakukan `TRUNCATE` pada tabel inti. Jangan jalankan di database produksi yang sudah berisi data penting. Untuk update cerita saja, gunakan `007`.
+
+### 4. Buat user admin (Auth)
+
+Di Supabase Dashboard → **Authentication → Users → Add user**:
+
+1. Pilih **Create new user**
+2. Isi **email** dan **password**
+3. Gunakan kredensial tersebut untuk login di `/login`
+
+## Cara menjalankan aplikasi
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Buka [http://localhost:3000](http://localhost:3000) untuk melihat aplikasi.
+Buka [http://localhost:3000](http://localhost:3000). Tanpa session, akses `/dashboard` akan diarahkan ke `/login`.
+
+### Production build (lokal)
+
+```bash
+npm run build
+npm start
+```
+
+### Script lain
+
+```bash
+npm run lint
+```
+
+## Akun demo
+
+Login memakai **Supabase Auth** (email + password) di [http://localhost:3000/login](http://localhost:3000/login).
+
+Kredensial demo disimpan lokal di `demo-account.txt` (file ini **di-gitignore**, tidak di-commit).
+
+```bash
+cp demo-account.example.txt demo-account.txt
+# lalu sesuaikan email/password di demo-account.txt
+```
+
+Pastikan user yang sama sudah dibuat di Supabase Dashboard → **Authentication → Users**.
+
+## Struktur database (ringkas)
+
+- `categories` — kategori budaya
+- `provinces` — daftar provinsi
+- `cultures` — data budaya
+- `stories` — cerita rakyat / legenda
+- `virtual_museum_items` — koleksi museum 3D
+- `museum_scenes` — scene virtual tour 360°
+- `expenses` — stub untuk guard delete di admin
+
+View utama: `view_cultures_with_category_province`, `view_stories_with_province`, `view_virtual_museum_items_with_category_province`.
+
+## Teknologi
+
+- [Next.js](https://nextjs.org/) — App Router
+- [Supabase](https://supabase.com/) — database, autentikasi, storage
+- [Zustand](https://zustand-demo.pmnd.rs/) — state management
+- [Tailwind CSS](https://tailwindcss.com/) — styling
+- [shadcn/ui](https://ui.shadcn.com/) — komponen UI
+- [TipTap](https://tiptap.dev/) — rich text editor (konten cerita/budaya)
