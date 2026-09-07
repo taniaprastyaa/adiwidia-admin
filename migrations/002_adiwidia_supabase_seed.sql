@@ -2,7 +2,8 @@
 -- Adiwidia Admin — Supabase seed data
 -- =============================================================================
 -- Jalankan SETELAH 001_adiwidia_supabase_schema.sql di SQL Editor.
--- Data nama/deskripsi/cerita bersifat faktual ringkas; URL media bersifat dummy.
+-- Data nama/deskripsi/cerita bersifat faktual ringkas.
+-- URL media cultures/museum bersifat dummy; stories memakai URL YouTube embed.
 -- Seeder ini TRUNCATE data tabel inti — jangan jalankan di DB yang sudah berisi data produksi.
 -- =============================================================================
 
@@ -225,71 +226,113 @@ INSERT INTO public.cultures (
  'https://maps.example.com/placeholder/soto-banjar', 'soto-banjar', '2025-09-20 08:00:00+00');
 
 -- ---------------------------------------------------------------------------
--- Stories (cerita rakyat faktual ringkas; video URL dummy)
+-- Stories (cerita rakyat; video YouTube)
 -- ---------------------------------------------------------------------------
 
 INSERT INTO public.stories (
   id, province_id, title, content_text, content_video_url, slug, created_at
 ) VALUES
-(1, 3, 'Malin Kundang',
- '<p>Malin Kundang adalah cerita rakyat Minangkabau tentang anak yang merantau, menjadi kaya, lalu enggan mengakui ibunya. Sang ibu mengutuknya hingga berubah menjadi batu di pantai.</p><p>Cerita ini mengajarkan pentingnya berbakti kepada orang tua.</p>',
- 'https://example.com/video/malin-kundang', 'malin-kundang', '2025-03-01 10:00:00+00'),
+-- SUMATERA
+(1, 1, 'Legenda Tapak Tuan',
+ '<p>Cerita rakyat dari Aceh tentang pertarungan seorang petapa raksasa dengan naga.</p>',
+ 'https://www.youtube.com/embed/4HetfKadXPc', 'legenda-tapak-tuan', '2025-01-07 10:00:00+00'),
+(2, 2, 'Asal Usul Danau Toba',
+ '<p>Legenda dari Sumatera Utara mengenai seorang pemuda yang menikahi jelmaan ikan mas yang berujung pada terciptanya Danau Toba.</p>',
+ 'https://www.youtube.com/embed/CapRqHdluYM', 'asal-usul-danau-toba', '2025-01-07 10:01:00+00'),
+(3, 6, 'Legenda Si Pahit Lidah',
+ '<p>Cerita rakyat dari Sumatera Selatan tentang Serunting Sakti yang sumpah serapahnya selalu menjadi kenyataan.</p>',
+ 'https://www.youtube.com/embed/0EUS0u9Cees', 'legenda-si-pahit-lidah', '2025-01-07 10:02:00+00'),
 
-(2, 14, 'Roro Jonggrang',
- '<p>Roro Jonggrang menceritakan Bandung Bondowoso yang ingin meminang putri Roro Jonggrang. Syaratnya membangun seribu candi dalam semalam. Tipu daya ayam berkokok membuatnya gagal, dan Roro Jonggrang dikutuk menjadi arca di Candi Prambanan.</p>',
- 'https://example.com/video/roro-jonggrang', 'roro-jonggrang', '2025-03-20 11:00:00+00'),
+-- JAWA & BANTEN
+(4, 12, 'Asal Usul Telaga Warna',
+ '<p>Kisah putri raja yang manja di Jawa Barat, di mana air matanya menciptakan danau bernama Telaga Warna.</p>',
+ 'https://www.youtube.com/embed/hnWeLPak2_0', 'asal-usul-telaga-warna', '2025-01-07 10:03:00+00'),
+(5, 12, 'Asal Usul Indramayu',
+ '<p>Cerita rakyat dari Jawa Barat mengenai sejarah dan asal-usul nama wilayah Indramayu.</p>',
+ 'https://www.youtube.com/embed/G6QYyr1ysR8', 'asal-usul-indramayu', '2025-01-07 10:04:00+00'),
+(6, 12, 'Legenda Lutung Kasarung',
+ '<p>Kisah Purbasari dan seekor kera sakti (Lutung) yang membantunya mendapatkan kembali haknya di Jawa Barat.</p>',
+ 'https://www.youtube.com/embed/CeOAeI6A6rE', 'legenda-lutung-kasarung', '2025-01-07 10:05:00+00'),
+(7, 12, 'Asal Usul Kota Bandung',
+ '<p>Kisah Sangkuriang dan Dayang Sumbi yang menjadi legenda terbentuknya Gunung Tangkuban Perahu dan sekitarnya.</p>',
+ 'https://www.youtube.com/embed/-7Pyqhloctg', 'asal-usul-kota-bandung', '2025-01-07 10:06:00+00'),
+(8, 12, 'Legenda Situ Bagendit',
+ '<p>Kisah dari Jawa Barat tentang keserakahan Nyai Endit yang berujung petaka dan menciptakan sebuah danau.</p>',
+ 'https://www.youtube.com/embed/2e7xT0XxkRQ', 'legenda-situ-bagendit', '2025-01-07 10:07:00+00'),
+(9, 13, 'Kisah Si Wuragil: 7 Bersaudara & Sepatu Wasiat',
+ '<p>Cerita rakyat Jawa Tengah tentang Si Wuragil yang cerdik bersama saudara-saudaranya.</p>',
+ 'https://www.youtube.com/embed/lgkdn3ZYrWo', 'kisah-si-wuragil', '2025-01-07 10:08:00+00'),
+(10, 13, 'Asal Usul Rawa Pening',
+ '<p>Kisah Baru Klinting yang mencabut lidi sakti dan menenggelamkan desa hingga menjadi Rawa Pening di Jawa Tengah.</p>',
+ 'https://www.youtube.com/embed/1fBJx_5k-7A', 'asal-usul-rawa-pening', '2025-01-07 10:09:00+00'),
+(11, 13, 'Asal Usul Nusakambangan',
+ '<p>Cerita rakyat Jawa Tengah yang mengisahkan legenda asal mula terbentuknya Pulau Nusakambangan.</p>',
+ 'https://www.youtube.com/embed/lIwlFgVnzxs', 'asal-usul-nusakambangan', '2025-01-07 10:10:00+00'),
+(12, 15, 'Asal Usul Banyuwangi',
+ '<p>Kisah kesetiaan seorang istri (Sri Tanjung) yang menjadi legenda asal mula nama daerah Banyuwangi di Jawa Timur.</p>',
+ 'https://www.youtube.com/embed/h3IbQMNAtgU', 'asal-usul-banyuwangi', '2025-01-07 10:11:00+00'),
+(13, 15, 'Asal Usul Bojonegoro',
+ '<p>Cerita rakyat dari Jawa Timur yang mengisahkan sejarah penamaan daerah Bojonegoro.</p>',
+ 'https://www.youtube.com/embed/wbhuS3Rj1VU', 'asal-usul-bojonegoro', '2025-01-07 10:12:00+00'),
+(14, 15, 'Legenda Kalarahu',
+ '<p>Mitos Gerhana Bulan dari Jawa Timur tentang raksasa Kalarahu yang mencoba menelan bulan.</p>',
+ 'https://www.youtube.com/embed/GxAzKi4Qpbs', 'legenda-kalarahu', '2025-01-07 10:13:00+00'),
+(15, 15, 'Asal Usul Tulungagung',
+ '<p>Kisah dari Jawa Timur mengenai asal mula wilayah Tulungagung.</p>',
+ 'https://www.youtube.com/embed/bJ4A0eXZPmI', 'asal-usul-tulungagung', '2025-01-07 10:14:00+00'),
+(16, 16, 'Legenda Tanjung Lesung',
+ '<p>Cerita rakyat dari Banten mengenai asal usul wilayah pesisir Tanjung Lesung.</p>',
+ 'https://www.youtube.com/embed/LWFnGUZxcm4', 'legenda-tanjung-lesung', '2025-01-07 10:15:00+00'),
+(17, 16, 'Legenda Batu Kuwung',
+ '<p>Kisah dari Banten tentang seseorang yang mengusir pengemis hingga hidupnya hancur.</p>',
+ 'https://www.youtube.com/embed/_tRAOeaD8qM', 'legenda-batu-kuwung', '2025-01-07 10:16:00+00'),
 
-(3, 12, 'Sangkuriang',
- '<p>Sangkuriang adalah legenda Sunda tentang seorang pemuda yang tanpa sadar ingin menikahi ibunya, Dayang Sumbi. Syarat membuat danau dan perahu semalam gagal, dan perahu terbalik menjadi Gunung Tangkuban Parahu.</p>',
- 'https://example.com/video/sangkuriang', 'sangkuriang', '2025-04-05 09:00:00+00'),
+-- BALI & NUSA TENGGARA
+(18, 17, 'Legenda Calon Arang',
+ '<p>Kisah dari Bali tentang seorang penyihir sakti penguasa ilmu hitam yang menebar wabah mematikan.</p>',
+ 'https://www.youtube.com/embed/1uc_t0F4fIY', 'legenda-calon-arang', '2025-01-07 10:17:00+00'),
+(19, 17, 'Asal Usul Buleleng Dan Singaraja',
+ '<p>Sejarah dan legenda asal mula nama Buleleng dan Singaraja di utara pulau Bali.</p>',
+ 'https://www.youtube.com/embed/VseWNRqJ-Q8', 'asal-usul-buleleng-singaraja', '2025-01-07 10:18:00+00'),
+(20, 17, 'Legenda Garuda Wisnu Kencana',
+ '<p>Kisah mitologi di Bali tentang bakti seekor burung Garuda kepada ibunya.</p>',
+ 'https://www.youtube.com/embed/8OHA_hPX-ww', 'legenda-garuda-wisnu-kencana', '2025-01-07 10:19:00+00'),
+(21, 18, 'Legenda Gunung Rinjani',
+ '<p>Kisah legenda tentang Gunung Rinjani yang berasal dari Pulau Lombok, Nusa Tenggara Barat.</p>',
+ 'https://www.youtube.com/embed/Pa_3u51dqWw', 'legenda-gunung-rinjani', '2025-01-07 10:20:00+00'),
+(22, 18, 'Legenda Putri Mandalika',
+ '<p>Cerita rakyat Lombok tentang pengorbanan seorang putri cantik yang menceburkan diri ke laut.</p>',
+ 'https://www.youtube.com/embed/S7qH6gUKgZY', 'legenda-putri-mandalika', '2025-01-07 10:21:00+00'),
 
-(4, 13, 'Timun Mas',
- '<p>Timun Mas lahir dari biji timun ajaib dan harus diserahkan kepada raksasa. Dengan bekal biji mentimun, jarum, garam, dan terasi dari seorang pertapa, ia berhasil melarikan diri dan mengalahkan raksasa.</p>',
- 'https://example.com/video/timun-mas', 'timun-mas', '2025-04-18 14:00:00+00'),
+-- KALIMANTAN
+(23, 20, 'Legenda Batu Menangis',
+ '<p>Kisah dari Kalimantan Barat tentang anak gadis durhaka yang dikutuk menjadi batu yang menangis.</p>',
+ 'https://www.youtube.com/embed/qu00d1Lv1M8', 'legenda-batu-menangis', '2025-01-07 10:22:00+00'),
+(24, 22, 'Putri Junjung Buih',
+ '<p>Kisah legendaris dari Kalimantan Selatan mengenai putri cantik yang muncul dari buih sungai.</p>',
+ 'https://www.youtube.com/embed/-dVW4P9qdyo', 'putri-junjung-buih', '2025-01-07 10:23:00+00'),
+(25, 23, 'Asal Usul Danau Lipan',
+ '<p>Legenda dari Kalimantan Timur tentang seorang putri sakti yang menolak pinangan dan menciptakan Danau Lipan.</p>',
+ 'https://www.youtube.com/embed/OIRo7H5IgCo', 'asal-usul-danau-lipan', '2025-01-07 10:24:00+00'),
+(26, 23, 'Legenda Pesut Mahakam',
+ '<p>Cerita rakyat dari Kalimantan Timur mengenai dua anak yang berubah menjadi pesut di Sungai Mahakam.</p>',
+ 'https://www.youtube.com/embed/9qBcG6dfbPo', 'legenda-pesut-mahakam', '2025-01-07 10:25:00+00'),
 
-(5, 15, 'Bawang Merah Bawang Putih',
- '<p>Cerita ini mengisahkan Bawang Putih yang baik hati dan Bawang Merah bersama ibu tirinya yang jahat. Kebaikan Bawang Putih berbuah keberuntungan, sementara keserakahan mendapat hukuman.</p>',
- 'https://example.com/video/bawang-merah-bawang-putih', 'bawang-merah-bawang-putih', '2025-05-02 10:00:00+00'),
+-- SULAWESI & INDONESIA UMUM
+(27, 27, 'Legenda I Laurang',
+ '<p>Cerita rakyat dari Sulawesi Selatan tentang manusia yang terlahir dalam wujud udang.</p>',
+ 'https://www.youtube.com/embed/tU42XEH3Z_E', 'legenda-i-laurang', '2025-01-07 10:26:00+00'),
+(28, 30, 'Legenda Samba Paria',
+ '<p>Cerita rakyat dari tanah Mandar (Sulawesi Barat) tentang sayur paria dan sifat kikir manusia.</p>',
+ 'https://www.youtube.com/embed/wALwBK1z7bQ', 'legenda-samba-paria', '2025-01-07 10:27:00+00'),
+(29, 13, 'Kisah Bawang Merah dan Bawang Putih',
+ '<p>Cerita rakyat populer nusantara tentang dua saudara dengan sifat berbeda. (Dialokasikan ke Jawa Tengah/umum)</p>',
+ 'https://www.youtube.com/embed/XYKYCVb1oCU', 'kisah-bawang-merah-dan-bawang-putih', '2025-01-07 10:28:00+00'),
 
-(6, 17, 'Cupak Gerantang',
- '<p>Cupak Gerantang adalah cerita Bali tentang dua saudara: Gerantang yang jujur dan Cupak yang curang. Pada akhirnya kebenaran terbongkar dan Gerantang mendapat keadilan.</p>',
- 'https://example.com/video/cupak-gerantang', 'cupak-gerantang', '2025-05-22 12:00:00+00'),
-
-(7, 2, 'Danau Toba',
- '<p>Legenda Danau Toba mengisahkan seorang petani yang melanggar pantangan dengan menceritakan asal istri dan anaknya yang berasal dari ikan. Akibatnya terjadi banjir besar yang membentuk Danau Toba dan Pulau Samosir.</p>',
- 'https://example.com/video/danau-toba', 'danau-toba', '2025-06-03 08:00:00+00'),
-
-(8, 1, 'Putri Pukes',
- '<p>Putri Pukes adalah cerita rakyat Gayo tentang seorang putri yang menikah di tanah jauh. Karena kerinduan dan peristiwa tragis dalam perjalanan, ia dikenang dalam legenda masyarakat Gayo Aceh.</p>',
- 'https://example.com/video/putri-pukes', 'putri-pukes', '2025-06-16 15:00:00+00'),
-
-(9, 27, 'La Upe',
- '<p>La Upe adalah cerita rakyat Bugis yang menekankan kecerdikan, kesetiaan, dan petualangan seorang tokoh muda dalam menghadapi tantangan adat dan kehidupan.</p>',
- 'https://example.com/video/la-upe', 'la-upe', '2025-07-04 11:00:00+00'),
-
-(10, 31, 'Batu Badaong',
- '<p>Batu Badaong adalah legenda Maluku tentang seorang anak durhaka yang dikutuk menjadi batu. Cerita ini menjadi pengingat akan pentingnya menghormati orang tua.</p>',
- 'https://example.com/video/batu-badaong', 'batu-badaong', '2025-07-19 09:00:00+00'),
-
-(11, 6, 'Si Pahit Lidah',
- '<p>Si Pahit Lidah (Serunting) adalah tokoh dalam cerita Sumatera Selatan yang memiliki kesaktian kata-kata pahit. Kisahnya berkaitan dengan asal-usul sejumlah tempat di wilayah Sumatera Selatan.</p>',
- 'https://example.com/video/si-pahit-lidah', 'si-pahit-lidah', '2025-08-02 13:00:00+00'),
-
-(12, 20, 'Ne’ Baruakng Kulau',
- '<p>Cerita Dayak ini mengisahkan tokoh yang mengajarkan cara bertani padi kepada masyarakat, menjadi dasar penghormatan terhadap padi dan tradisi pertanian Dayak.</p>',
- 'https://example.com/video/ne-baruakng-kulau', 'ne-baruakng-kulau', '2025-08-18 10:00:00+00'),
-
-(13, 8, 'Sang Pangarah',
- '<p>Sang Pangarah adalah cerita rakyat Lampung yang berisi pesan kepemimpinan, tanggung jawab sosial, dan nilai adat Pepadun dalam kehidupan masyarakat.</p>',
- 'https://example.com/video/sang-pangarah', 'sang-pangarah', '2025-09-02 14:00:00+00'),
-
-(14, 19, 'Asal Mula Pulau Komodo',
- '<p>Legenda NTT mengisahkan hubungan mitos antara manusia dan komodo sebagai saudara. Cerita ini memperkuat penghormatan masyarakat setempat terhadap satwa tersebut.</p>',
- 'https://example.com/video/pulau-komodo', 'asal-mula-pulau-komodo', '2025-09-12 16:00:00+00'),
-
-(15, 33, 'Manarmakeri',
- '<p>Manarmakeri adalah tokoh dalam mitos Papua (khususnya Biak dan sekitarnya) yang berkaitan dengan kisah asal-usul kesejahteraan dan gerakan keagamaan lokal di masa lalu.</p>',
- 'https://example.com/video/manarmakeri', 'manarmakeri', '2025-09-22 09:00:00+00');
+-- PAPUA
+(30, 33, 'Biwar Sang Penakluk Naga',
+ '<p>Cerita rakyat Papua mengenai seorang pemuda pemberani bernama Biwar yang berjuang menaklukkan naga.</p>',
+ 'https://www.youtube.com/embed/psNkh6nAW1E', 'biwar-sang-penakluk-naga', '2025-01-07 10:29:00+00');
 
 -- ---------------------------------------------------------------------------
 -- Virtual museum items (artefak faktual; media_3d_url dummy)
